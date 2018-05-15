@@ -32,5 +32,6 @@
 *.app
 
 # Note files
+notes.txt
 *.txt
 *.dat
