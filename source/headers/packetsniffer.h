@@ -48,6 +48,10 @@ class Packet_Sniffer {
         // Callback on every packet recieved
         bool callback(PDU& pdu);
 
+        // Packet types 0..2
+        void management_handler(const Dot11& pdu);
+        void control_handler(const Dot11& pdu);
+        void data_handler(const Dot11& pdu);
 };
 
 #endif

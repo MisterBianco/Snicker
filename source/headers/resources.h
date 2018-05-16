@@ -27,6 +27,10 @@
 *
 */
 
+#include <vector>
+#include <string>
+#include <unordered_map>
+
 #ifndef RESOURCES_H
 #define RESOURCES_H
 

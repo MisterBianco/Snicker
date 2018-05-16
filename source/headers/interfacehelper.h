@@ -27,6 +27,8 @@
 *
 */
 
+#include <string>
+
 #ifndef INTERFACE_HELPER_H
 #define INTERFACE_HELPER_H
 
@@ -35,9 +37,9 @@
  *
  * @name: name of interface to validate
  */
-int is_wface(const char* name, const int& sock);
-int is_mon_mode(const char* ifname, const int& sock);
+int is_wface(const std::string& ifname, const int& sock);
+int is_mon_mode(const std::string& ifname, const int& sock);
 
-void hopper(const char* ifname, const int& sock);
+void hopper(const std::string& ifname, const int& sock);
 
 #endif

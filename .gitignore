@@ -27,6 +27,7 @@
 *.lib
 
 # Executables
+build/snicker
 *.exe
 *.out
 *.app

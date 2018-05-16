@@ -27,6 +27,7 @@
 *
 */
 
+#include <string>
 #include <thread>
 #include <iostream>
 #include <signal.h>
@@ -55,21 +56,17 @@ void usage() {
 }
 
 int main(const int argc, const char* argv[]) {
-
-    // Check if user is root
     if (__uid()) __exit("[-] User not root", 1);
 
     if (argc < 2) __exit("[-] Usage: ./run [interface]", 1);
 
-    /* ====================== Init Checks complete =================== */
-    // Persistent system socket
     int sock = -1;
 
     // Function Variables
-    char* iface = NULL;
-    char* freq  = '2';
-    char* chan  = NULL;
-    char* trgt  = NULL;
+    std::string iface;
+    std::string freq  = "2";
+    std::string chan;
+    std::string trgt;
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
         __exit("[-] Can't open Socket", 1);
@@ -78,13 +75,19 @@ int main(const int argc, const char* argv[]) {
     // Sys arg parsing
     for (int i = 0; i < argc; i++) {
         if (strcmp(argv[i], "-i") == 0) {
-            iface = (char*)argv[i+1];
+            iface = argv[i+1];
+            i++;
+        } else if (strcmp(argv[i], "-f") == 0) {
+            freq = argv[i+1];
+            i++;
+        } else if (strcmp(argv[i], "-c") == 0) {
+            chan = argv[i+1];
             i++;
         }
     }
 
     // Check if interface found else exit to avoid seg fault
-    if (!iface) usage();
+    if (iface.empty()) usage();
 
     if (!is_wface(iface, sock)) {
         __exit("[-] Interface is not wireless", 1);
@@ -94,10 +97,8 @@ int main(const int argc, const char* argv[]) {
         __exit("[-] Interface is not in monitor mode", 1);
     }
 
-    __exit("", 0);
-
     signal(SIGINT, sighandler);
-    std::thread channel_hopper(hopper, argv[1], sock);
+    std::thread channel_hopper(hopper, iface, sock);
 
     Packet_Sniffer sniffer;
     sniffer.config("wlan1mon");

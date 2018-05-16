@@ -8,11 +8,27 @@ LDFLAGS  := -ltins -lpthread
 
 all: $(TARGETS)
 
+# Checks and tests
 check: $(TARGETS)
 	sudo $(BPATH)/snicker -i wlan1mon
 
-badcheck: $(TARGETS)
+check1: $(TARGETS)
+	sudo $(BPATH)/snicker -i wlan1mon -f 2
+
+check2: $(TARGETS)
+	sudo $(BPATH)/snicker -i wlan1mon -f 2 -c 5
+
+bcheck: $(TARGETS)
 	sudo $(BPATH)/snicker wlan1mon
+
+bcheck1: $(TARGETS)
+	sudo $(BPATH)/snicker -i wlan1mon -1
+
+bcheck2: $(TARGETS)
+	sudo $(BPATH)/snicker -i wlan1mon 5
+
+bcheck3: $(TARGETS)
+	sudo $(BPATH)/snicker -i wlan1mon -f 5 5
 
 $(BPATH)/snicker: $(OBJECTS)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
