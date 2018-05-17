@@ -28,11 +28,11 @@
 
 # Executables
 build/snicker
+build/test
 *.exe
 *.out
 *.app
 
 # Note files
 notes.txt
-*.txt
 *.dat

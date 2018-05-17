@@ -60,6 +60,7 @@ int main(const int argc, const char* argv[]) {
 
     if (argc < 2) __exit("[-] Usage: ./run [interface]", 1);
 
+    // Persistent socket.
     int sock = -1;
 
     // Function Variables
@@ -98,11 +99,14 @@ int main(const int argc, const char* argv[]) {
     }
 
     signal(SIGINT, sighandler);
+
+    // If channel is set then dont create the channel hopping thread.
     std::thread channel_hopper(hopper, iface, sock);
 
-    Packet_Sniffer sniffer;
-    sniffer.config("wlan1mon");
+    Packet_Sniffer* sniffer = new Packet_Sniffer();
+    sniffer->config("wlan1mon");
 
+    // Channel join MUST be here. Not sure why.
     channel_hopper.join();
 
     return 0;

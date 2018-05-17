@@ -8,38 +8,20 @@ LDFLAGS  := -ltins -lpthread
 
 all: $(TARGETS)
 
-# Checks and tests
-check: $(TARGETS)
-	sudo $(BPATH)/snicker -i wlan1mon
-
-check1: $(TARGETS)
-	sudo $(BPATH)/snicker -i wlan1mon -f 2
-
-check2: $(TARGETS)
-	sudo $(BPATH)/snicker -i wlan1mon -f 2 -c 5
-
-bcheck: $(TARGETS)
-	sudo $(BPATH)/snicker wlan1mon
-
-bcheck1: $(TARGETS)
-	sudo $(BPATH)/snicker -i wlan1mon -1
-
-bcheck2: $(TARGETS)
-	sudo $(BPATH)/snicker -i wlan1mon 5
-
-bcheck3: $(TARGETS)
-	sudo $(BPATH)/snicker -i wlan1mon -f 5 5
-
 $(BPATH)/snicker: $(OBJECTS)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 $(BPATH)/%.o: source/src/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+# Checks and tests
+check: $(TARGETS)
+	sudo $(BPATH)/snicker -i wlan1mon
+
 memtest: $(PROGRAM)
-	rm -f valgrind.log
-	-valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -v --log-file=valgrind.log ./$(TARGETS)
-	cat valgrind.log
+	-rm -f valgrind.log
+	-sudo valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -v --log-file=valgrind.log ./$(TARGETS) -i wlan1mon
+	-cat valgrind.log
 
 clean:
 	-rm -f *~

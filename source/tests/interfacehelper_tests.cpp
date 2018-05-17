@@ -27,33 +27,36 @@
 *
 */
 
-#ifndef PACKET_SNIFFER_H
-#define PACKET_SNIFFER_H
+#include <iostream>
+#include <string.h>
+#include <sys/socket.h>
 
-#include <tins/tins.h>
+#include "gtest/gtest.h"
 
-using namespace Tins;
+#include "../headers/interfacehelper.h"
 
-class Packet_Sniffer {
+// Write function to simply generate the socket.
+int sock = socket(AF_INET, SOCK_STREAM, 0);
 
-    public:
-        Packet_Sniffer();
-        ~Packet_Sniffer();
+TEST(is_wface_test, T0) {
+    EXPECT_FALSE (is_wface("alsdf", sock));
+}
 
-        int count = 0;
+TEST(is_wface_test, T1) {
+    EXPECT_FALSE (is_wface("eth0", sock));
+}
 
-        // Set up the configuration for the run
-        void config(const char* ifname);
+TEST(is_wface_test, T2) {
+    EXPECT_TRUE (is_wface("wlan0", sock));
+}
 
-    protected:
+TEST(is_mon_mode_test, T0) {
+    EXPECT_FALSE (is_mon_mode("wlan0", sock));
+}
 
-        // Callback on every packet recieved
-        bool callback(PDU& pdu);
+int main(int argc, char* argv[]) {
+    if (sock == -1) exit(0);
 
-        // Packet types 0..2
-        void management_handler(const Dot11& pdu);
-        void control_handler(const Dot11& pdu);
-        void data_handler(const Dot11& pdu);
-};
-
-#endif
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
