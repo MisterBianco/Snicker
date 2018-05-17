@@ -35,6 +35,13 @@
 #include <sys/types.h>
 #include <linux/wireless.h>
 
+/*
+ *  is_wface
+ *          Function to test if supplied name is a wireless card name
+ *
+ * @ifname - the name of the card
+ * @sock   - the persistent socket that ioctl will use
+ */
 int is_wface(const std::string& ifname, const int& sock) {
     struct iwreq pifinfo;
 
@@ -45,6 +52,13 @@ int is_wface(const std::string& ifname, const int& sock) {
     return 0;
 }
 
+/*
+ *  is_mon_mode
+ *          Function to test if supplied name of wireless card is in monitor mode
+ *
+ * @ifname - the name of the card
+ * @sock   - the persistent socket that ioctl will use
+ */
 int is_mon_mode(const std::string& ifname, const int& sock) {
     struct iwreq pifinfo;
 
@@ -56,6 +70,14 @@ int is_mon_mode(const std::string& ifname, const int& sock) {
     return pifinfo.u.mode == 6;
 }
 
+/*
+ *  set_channel
+ *          Function to set the channel of a wireless card
+ *
+ * @ifname - the name of the card
+ * @sock   - the persistent socket that ioctl will use
+ * @channel - the channel to set the card on.
+ */
 int set_channel(const std::string& ifname, const int& sock, const int8_t& channel) {
     struct iwreq wrq;
 
@@ -72,6 +94,13 @@ int set_channel(const std::string& ifname, const int& sock, const int8_t& channe
     return 0;
 }
 
+/*
+ *  hopper
+ *          daemon thread to handle the channel hopping of the wireless card
+ *
+ * @ifname - the name of the card
+ * @sock   - the persistent socket that ioctl will use
+ */
 void hopper(const std::string& ifname, const int& sock) {
     unsigned int seed = time(NULL);
     double sleep_timer = 1;

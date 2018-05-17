@@ -36,20 +36,42 @@ std::unordered_map<std::string, std::vector<int>> frequency_maps = {
     {"5", {36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 132, 136, 140, 149, 153, 157, 161, 165}}
 };
 
+/*
+ *  __uid
+ *          Function to get the uid of the program
+ */
 int __uid() {
     return setuid(0);
 }
 
+/*
+ *  valid_channel
+ *          Function to check if supplied channel is valid
+ *
+ * @freq - the frequency range to check against
+ * @chan - the channel to check
+ */
 int valid_channel(const std::string& freq, const int chan) {
 
     return 0;
 }
 
+/*
+ *  sighandler
+ *          Function to kill itself on sigint
+ */
 void sighandler(const int signum) {
     std::cout << "\r[" << signum << "] Exiting..." << std::endl;
     exit(0);
 }
 
+/*
+ *  __exit
+ *          My personal exit wrapper
+ *
+ * @msg - the msg to pring out on Exiting
+ * @code - the status code for exit accessible using 'echo $?'
+ */
 void __exit(const char* msg, const short code) {
     std::cout << msg << std::endl;
     exit(code);

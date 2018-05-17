@@ -72,13 +72,13 @@ bool Packet_Sniffer::callback(PDU& pdu) {
 }
 
 void Packet_Sniffer::management_handler(const Dot11& pdu) {
-    std::cout << "0 | Packet: " << ++count << std::endl;
+    std::cout << "mgmt | Packet: " << ++count << std::endl;
 }
 
 void Packet_Sniffer::control_handler(const Dot11& pdu) {
-    std::cout << "1 | packet: " << ++count << std::endl;
+    std::cout << "ctrl | Packet: " << ++count << std::endl;
 }
 
 void Packet_Sniffer::data_handler(const Dot11& pdu) {
-    std::cout << "2 | packet: " << ++count << std::endl;
+    std::cout << "data | Packet: " << ++count << std::endl;
 }

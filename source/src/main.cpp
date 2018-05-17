@@ -38,6 +38,10 @@
 #include "../headers/packetsniffer.h"
 #include "../headers/interfacehelper.h"
 
+/*
+ * usage
+ *      Used to print the intended usage of the program and its args
+ */
 void usage() {
     std::cout << "\r\n    Snicker 1.0" <<std::endl;
     std::cout << "      Jarad Dingman, MisterBianco" <<std::endl;
@@ -55,6 +59,13 @@ void usage() {
     __exit("", 1);
 }
 
+/*
+ *  main
+ *       Used as the entry point of the program
+ *
+ *  @argc - an int of all sys args
+ *  @argv - an array of sys args
+ */
 int main(const int argc, const char* argv[]) {
     if (__uid()) __exit("[-] User not root", 1);
 
