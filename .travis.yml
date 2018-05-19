@@ -1,5 +1,8 @@
 language: cpp
 sudo: enabled
+env:
+    global:
+        - LANG="en_US.UTF-8"
 
 compiler:
     - g++
@@ -35,7 +38,3 @@ before_script:
 
 script:
     - sudo build/test
-
-env:
-    global:
-        - LANG="en_US.UTF-8"
