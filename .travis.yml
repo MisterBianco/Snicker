@@ -1,0 +1,24 @@
+language: cpp
+
+sudo: enabled
+
+compiler:
+    - g++
+
+os:
+    - linux
+
+addons:
+    apt:
+        - libpcap-dev
+        - libssl-dev
+
+before-script:
+    - chmod +x setup.sh
+    - sudo setup.sh
+    - make
+    - cd source/tests
+    - make check
+
+scripts:
+    - ./build/snicker
