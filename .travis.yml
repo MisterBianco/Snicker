@@ -18,8 +18,8 @@ addons:
 before_script:
     - ./setup.sh
     - cd source/tests
-    - make
-    - sudo ldconfig
+    - make check
+    - cd ../..
 
 script:
     - sudo ~/misterbianco/build/test
