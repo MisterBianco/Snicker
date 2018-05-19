@@ -3,7 +3,7 @@ BPATH    := ../../build
 TARGETS  := $(BPATH)/test
 OBJECTS  := $(BPATH)/interfacehelper_tests.o $(BPATH)/interfacehelper.o $(BPATH)/packetsniffer.o $(BPATH)/resources.o
 
-CXXFLAGS := -g -std=c++17 -Wall -Wextra
+CXXFLAGS := -g -std=c++11 -Wall -Wextra
 LDFLAGS  := -ltins -lpthread -lgtest
 
 all: $(TARGETS)
