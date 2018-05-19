@@ -18,6 +18,7 @@ before_script:
     - ./setup.sh
     - cd source/tests
     - make check
+    - ldconfig
 
 scripts:
     - ./build/snicker
