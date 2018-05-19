@@ -1,5 +1,11 @@
 # Created by MisterBianco
 
+setup() {
+    echo "Snicker Setup"
+    echo -ne "=============\r\n"
+    echo -ne "$1\r"
+}
+
 progressbar() {
     # Progress on wait for update
     sleep 3
@@ -14,9 +20,7 @@ progressbar() {
     echo -ne "[ ############### ] (100%)\r"
 }
 
-echo "Snicker Setup"
-echo -ne "=============\r\n"
-echo -ne "Updating system\r"
+setup "Updating system"
 
 progressbar
 
