@@ -46,11 +46,11 @@ TEST(is_wface_test, T1) {
     EXPECT_FALSE (is_wface("eth0", sock));
 }
 
-TEST(is_wface_test, T2) {
-    EXPECT_TRUE (is_wface("wlan0", sock));
-}
-
 // This needs to be reimplemented to grab all interfaces and test them.
+// TEST(is_wface_test, T2) {
+//     EXPECT_TRUE (is_wface("wlan0", sock));
+// }
+// 
 // TEST(is_mon_mode_test, T0) {
 //     EXPECT_FALSE (is_mon_mode("wlan0", sock));
 // }
