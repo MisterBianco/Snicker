@@ -21,7 +21,9 @@ addons:
         packages:
             - libpcap-dev
             - libssl-dev
-            - gcov
+
+install:
+     - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90
 
 branches:
     only:
