@@ -23,10 +23,10 @@ addons:
             - libssl-dev
             - gcov
 
-branches:
-    only:
-        - master
-        - develop
+# branches:
+#     only:
+#         - master
+#         - develop
 
 before_script:
     - "./setup.sh"
