@@ -1,7 +1,6 @@
-#!/usr/bin/sh
 # Created by MisterBianco
 
-function progressbar() {
+progressbar() {
     # Progress on wait for update
     sleep 3
     echo -ne "[ ###             ] (20%)\r"
