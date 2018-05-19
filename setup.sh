@@ -8,13 +8,11 @@ setup() {
 
 progressbar() {
     # Progress on wait for update
-    sleep 3
-    echo -ne "[ ###             ] (20%)\r"
     sleep 1
+    echo -ne "[ ###             ] (20%)\r"
     echo -ne "[ ######          ] (40%)\r"
     sleep 1
     echo -ne "[ #########       ] (60%)\r"
-    sleep 1
     echo -ne "[ ############    ] (80%)\r"
     sleep 1
     echo -ne "[ ############### ] (100%)\r"
@@ -31,7 +29,7 @@ echo -ne "Installing libtins dependencies... \r"
 sudo apt-get install libpcap0.8 openssl cmake -y
 # valgrind
 
-sleep 2
+sleep 1
 clear
 
 echo "Snicker Setup"
