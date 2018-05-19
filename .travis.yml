@@ -22,9 +22,6 @@ addons:
             - libpcap-dev
             - libssl-dev
 
-install:
-     - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90
-
 branches:
     only:
         - master
@@ -38,11 +35,6 @@ before_script:
 
 script:
     - sudo build/test
-
-after_success:
-    - ./codecov.sh
-    # Uploading report to CodeCov
-    - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
 
 env:
     global:
