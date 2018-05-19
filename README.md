@@ -3,7 +3,6 @@ Snicker
 
 [![CodeFactor](https://www.codefactor.io/repository/github/misterbianco/snicker/badge)](https://www.codefactor.io/repository/github/misterbianco/snicker)
 [![Build Status](https://travis-ci.org/MisterBianco/Snicker.svg?branch=master)](https://travis-ci.org/MisterBianco/Snicker)
-[![codecov](https://codecov.io/gh/MisterBianco/Snicker/branch/master/graph/badge.svg)](https://codecov.io/gh/MisterBianco/Snicker)
 
 Snicker is a high performance packet sniffer written in C++
 
