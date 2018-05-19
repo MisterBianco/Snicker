@@ -4,7 +4,7 @@ TARGETS  := $(BPATH)/snicker
 OBJECTS  := $(BPATH)/main.o $(BPATH)/interfacehelper.o $(BPATH)/packetsniffer.o $(BPATH)/resources.o
 
 CXXFLAGS := -g -std=c++11 -Wall -Wextra
-LDFLAGS  := -ltins -lpthread
+LDFLAGS  := -ltins -lpthread -lgcov
 
 all: $(TARGETS)
 
