@@ -21,7 +21,8 @@ echo -ne "sudo apt-get update running...      \r"
 sudo apt-get update -qq
 
 echo -ne "Installing libtins dependencies... \r"
-sudo apt-get install libpcap0.8 openssl cmake valgrind -y
+sudo apt-get install libpcap0.8 openssl cmake -y
+# valgrind
 
 sleep 2
 clear
