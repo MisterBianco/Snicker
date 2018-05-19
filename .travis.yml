@@ -1,5 +1,4 @@
 language: cpp
-
 sudo: enabled
 
 compiler:
@@ -8,18 +7,22 @@ compiler:
 os:
     - linux
 
+notifications:
+    slack:
+        secure:         PcaA1vEHxc8jqmZ+JXGir3lygvdkOfBvZXiVjSIMiqlaJ+ynQZFoCDgX5jfuC8dKFsBRqD2BmM7zymKJGQirVb6eMiMlpgM8xX8RFTP117UPyaUUZiPuWeAylUfvfWC93OuaejpZVh27g92g04BVOM33gq6oSab6UcQf3UARSIJdXrkriORQ3SNdQSmnuqxpvWO6ZzLPVmOWL8uyU5/Uc/5Q+JJxxaPg/mA81SSWshFDIxWyRZYIZSgM92UbX/QnX+ngyqzGBIuSVLdO2ILVKiJ7I9KMNYwpSrOm+jcLcLKWg6VpI8FF+1F/iZNDrCowVHhyTvIgfN2ct5DSeCY6wm2aA5gzbs0EngUM0GKnujQQUsHzabY+4n3qg1iZK0y1S6XHDx35J459N++rzn4wRNGwj6gSemupfwyHBrx+/Z7KWI9UkKBP6S6TuXL7xEuHTktPoHZXyEhs0xJkFZ0FRyX/yKjUZEobUkBMBJyDi1P4cgYFd+p/YVnji4ldkQvW71RUACb1eJWmhNwP31mcCNQUx6hFissLcgew5eJj+01RKrtEsSUgIP9VhRL4e3ieAH67TnUWQnwTH4EaKiZ2SKUX13NBAxBZzVErsNeK78F2/w9otgi2Ax0WD7Ko9fzwM46nrPhPMlihIaZw0+JlZCZKMSCcWOB7/+B5t+mrNDQ=
+
 addons:
     apt:
         update: true
         packages:
-        - libpcap-dev
-        - libssl-dev
+            - libpcap-dev
+            - libssl-dev
 
 before_script:
-    - ./setup.sh
+    - "./setup.sh"
     - cd source/tests
     - make
     - cd ../..
-
+    
 script:
     - sudo build/test
