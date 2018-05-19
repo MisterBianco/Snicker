@@ -14,8 +14,8 @@ addons:
         - libssl-dev
 
 before-script:
-    - chmod +x setup.sh
-    - sudo setup.sh
+    - sudo chmod +x setup.sh
+    - sudo ./setup.sh
     - make
     - cd source/tests
     - make check
