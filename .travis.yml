@@ -22,4 +22,4 @@ before_script:
     - sudo ldconfig
 
 script:
-    - sudo ~/build/test
+    - sudo ~/misterbianco/build/test
