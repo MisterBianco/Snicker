@@ -22,4 +22,4 @@ before_script:
     - cd ../..
 
 script:
-    - sudo ~/misterbianco/build/test
+    - sudo build/test
