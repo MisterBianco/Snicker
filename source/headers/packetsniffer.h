@@ -35,7 +35,6 @@
 using namespace Tins;
 
 class Packet_Sniffer {
-
     public:
         Packet_Sniffer();
         ~Packet_Sniffer();

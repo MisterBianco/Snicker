@@ -1,6 +1,7 @@
 Snicker
 ===
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CodeFactor](https://www.codefactor.io/repository/github/misterbianco/snicker/badge)](https://www.codefactor.io/repository/github/misterbianco/snicker)
 [![Build Status](https://travis-ci.org/MisterBianco/Snicker.svg?branch=master)](https://travis-ci.org/MisterBianco/Snicker)
 
