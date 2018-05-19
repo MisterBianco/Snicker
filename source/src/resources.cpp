@@ -52,7 +52,6 @@ int __uid() {
  * @chan - the channel to check
  */
 int valid_channel(const std::string& freq, const int chan) {
-
     return 0;
 }
 

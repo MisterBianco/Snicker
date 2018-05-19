@@ -1,6 +1,8 @@
 Snicker
 ===
 
+[![CodeFactor](https://www.codefactor.io/repository/github/misterbianco/snicker/badge)](https://www.codefactor.io/repository/github/misterbianco/snicker)
+
 Snicker is a high performance packet sniffer written in C++
 
 State: Testing

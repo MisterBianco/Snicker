@@ -46,7 +46,6 @@ class Packet_Sniffer {
         void config(const char* ifname);
 
     protected:
-
         // Callback on every packet recieved
         bool callback(PDU& pdu);
 

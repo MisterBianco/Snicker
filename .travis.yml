@@ -18,8 +18,7 @@ addons:
 before_script:
     - ./setup.sh
     - cd source/tests
-    - make check
     - sudo ldconfig
 
-scripts:
+script:
     - sudo ./build/test

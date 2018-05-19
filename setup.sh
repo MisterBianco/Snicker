@@ -1,21 +1,25 @@
+#!/usr/bin/sh
 # Created by MisterBianco
+
+function progressbar() {
+    # Progress on wait for update
+    sleep 3
+    echo -ne "[ ###             ] (20%)\r"
+    sleep 1
+    echo -ne "[ ######          ] (40%)\r"
+    sleep 1
+    echo -ne "[ #########       ] (60%)\r"
+    sleep 1
+    echo -ne "[ ############    ] (80%)\r"
+    sleep 1
+    echo -ne "[ ############### ] (100%)\r"
+}
 
 echo "Snicker Setup"
 echo -ne "=============\r\n"
 echo -ne "Updating system\r"
 
-# Progress on wait for update
-sleep 3
-echo -ne "[ ###             ] (20%)\r"
-sleep 1
-echo -ne "[ ######          ] (40%)\r"
-sleep 1
-echo -ne "[ #########       ] (60%)\r"
-sleep 1
-echo -ne "[ ############    ] (80%)\r"
-sleep 1
-echo -ne "[ ############### ] (100%)\r"
-
+progressbar
 
 echo -ne "sudo apt-get update running...      \r"
 sudo apt-get update -qq
@@ -31,16 +35,7 @@ echo "Snicker Setup"
 echo -ne "=============\r\n"
 echo -ne "Installing libtins\r"
 
-sleep 3
-echo -ne "[ ###             ] (20%)\r"
-sleep 1
-echo -ne "[ ######          ] (40%)\r"
-sleep 1
-echo -ne "[ #########       ] (60%)\r"
-sleep 1
-echo -ne "[ ############    ] (80%)\r"
-sleep 1
-echo -ne "[ ############### ] (100%)\r"
+progressbar
 
 git clone https://github.com/mfontanini/libtins.git
 cd libtins

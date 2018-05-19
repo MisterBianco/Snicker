@@ -50,7 +50,7 @@ TEST(is_wface_test, T1) {
 // TEST(is_wface_test, T2) {
 //     EXPECT_TRUE (is_wface("wlan0", sock));
 // }
-// 
+//
 // TEST(is_mon_mode_test, T0) {
 //     EXPECT_FALSE (is_mon_mode("wlan0", sock));
 // }
