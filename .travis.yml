@@ -14,15 +14,37 @@ notifications:
 addons:
     apt:
         update: true
+        sources:
+            - ubuntu-toolchain-r-test
         packages:
             - libpcap-dev
             - libssl-dev
+            - lcov
+
+branches:
+    only:
+        - master
 
 before_script:
     - "./setup.sh"
     - cd source/tests
     - make
     - cd ../..
-    
+
 script:
     - sudo build/test
+
+after_success:
+    - lcov --directory . --capture --output-file coverage.info              # capture coverage info
+    - lcov --remove coverage.info '/usr/*' --output-file coverage.info      # filter out system
+    - lcov --list coverage.info
+    # Uploading report to CodeCov
+    - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+
+notifications:
+    email:
+        - jayrad.security@protonmail.com
+
+env:
+    global:
+        - LANG="en_US.UTF-8"
