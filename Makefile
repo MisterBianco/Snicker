@@ -1,7 +1,13 @@
 BPATH    := build
 
 TARGETS  := $(BPATH)/snicker
-OBJECTS  := $(BPATH)/main.o $(BPATH)/interfacehelper.o $(BPATH)/packetsniffer.o $(BPATH)/resources.o
+OBJECTS  := $(BPATH)/main.o \
+						$(BPATH)/interfacehelper.o \
+						$(BPATH)/packetsniffer.o \
+						$(BPATH)/resources.o \
+						$(BPATH)/clients.o \
+						$(BPATH)/hotspots.o \
+						$(BPATH)/filesniffer.o \
 
 CXXFLAGS := -g -std=c++11 -Wall -Wextra
 LDFLAGS  := -ltins -lpthread -lgcov
@@ -17,6 +23,9 @@ $(BPATH)/%.o: source/src/%.cpp
 # Checks and tests
 check: $(TARGETS)
 	sudo $(BPATH)/snicker -i wlan1mon
+
+read: $(TARGETS)
+		sudo $(BPATH)/snicker -o test.pcap
 
 memtest: $(PROGRAM)
 	-rm -f valgrind.log

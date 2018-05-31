@@ -34,6 +34,11 @@
 
 using namespace Tins;
 
+// Notes: Make this class able to sniff from a file if given.
+//      Do this using multiple constructors of different types.
+
+typedef Dot11::address_type address_type;
+
 Packet_Sniffer::Packet_Sniffer() {
     std::cout << "Class created." << std::endl;
 }
@@ -72,13 +77,57 @@ bool Packet_Sniffer::callback(PDU& pdu) {
 }
 
 void Packet_Sniffer::management_handler(const Dot11& pdu) {
-    std::cout << "mgmt | Packet: " << ++count << std::endl;
+    const uint8_t& dot11_subtype = pdu.subtype();
+
+    const Dot11ManagementFrame& mgmt_frame = pdu.rfind_pdu<Dot11ManagementFrame>();
+
+    //const address_type addr2 = mgmt_frame.addr2();
+    //const address_type addr3 = mgmt_frame.addr3();
+
+    switch(dot11_subtype) {
+        case 0:                 // Assoc request
+            break;
+        case 1:                 // Assoc Response
+            break;
+        case 2:                 // Reassoc request
+            break;
+        case 3:                 // Reassoc Response
+            break;
+        case 4:                 // Probe Request
+            break;
+        case 5:                 // Probe Response
+            break;
+        case 8:                 // Beacon
+            break;
+        case 9:                 // ATIM
+            break;
+        case 10:                // Disassociation
+            break;
+        case 11:                // Auth
+            break;
+        case 12:                // Deauthentication
+            break;
+        default:
+            break;
+    }
+    std::cout << "mgmt | " << (uint)dot11_subtype << " | Packet: " << ++count << std::endl;
 }
 
 void Packet_Sniffer::control_handler(const Dot11& pdu) {
-    std::cout << "ctrl | Packet: " << ++count << std::endl;
+    const uint8_t& dot11_subtype = pdu.subtype();
+
+    const Dot11Control& cntrl_frame = pdu.rfind_pdu<Dot11Control>();
+
+    //const address_type addr1 = cntrl_frame.addr1();
+    std::cout << "ctrl | " << (uint)dot11_subtype << "  | Packet: " << ++count << std::endl;
 }
 
 void Packet_Sniffer::data_handler(const Dot11& pdu) {
-    std::cout << "data | Packet: " << ++count << std::endl;
+    const uint8_t& dot11_subtype = pdu.subtype();
+
+    const Dot11Data& data_frame = pdu.rfind_pdu<Dot11Data>();
+
+    //const address_type addr2 = data_frame.addr2();
+    //const address_type addr3 = data_frame.addr3();
+    std::cout << "data | " << (uint)dot11_subtype << "  | Packet: " << ++count << std::endl;
 }

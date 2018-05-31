@@ -36,3 +36,4 @@ build/test
 # Note files
 notes.txt
 *.dat
+*.pcap

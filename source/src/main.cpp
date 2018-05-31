@@ -35,6 +35,7 @@
 
 // My header files
 #include "../headers/resources.h"
+#include "../headers/filesniffer.h"
 #include "../headers/packetsniffer.h"
 #include "../headers/interfacehelper.h"
 
@@ -80,6 +81,8 @@ int main(const int argc, const char* argv[]) {
     std::string chan;
     std::string trgt;
 
+    std::string filename;
+
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
         __exit("[-] Can't open Socket", 1);
     }
@@ -95,30 +98,41 @@ int main(const int argc, const char* argv[]) {
         } else if (strcmp(argv[i], "-c") == 0) {
             chan = argv[i+1];
             i++;
+        } else if (strcmp(argv[i], "-o") == 0) {
+            filename = argv[i+1];
+            i++;
         }
     }
 
-    // Check if interface found else exit to avoid seg fault
-    if (iface.empty()) usage();
-
-    if (!is_wface(iface, sock)) {
-        __exit("[-] Interface is not wireless", 1);
+    // If filename then we are reading from a file
+    if (!filename.empty()) {
+        File_Sniffer* sniffer = new File_Sniffer(filename.c_str());
+        sniffer->run();
     }
+    else {
+        // Check if interface found else exit to avoid seg fault
+        if (iface.empty()) usage();
 
-    if (!is_mon_mode(iface, sock)) {
-        __exit("[-] Interface is not in monitor mode", 1);
+        if (!is_wface(iface, sock)) {
+            __exit("[-] Please select a wireless interface", 1);
+        }
+
+        if (!is_mon_mode(iface, sock)) {
+            __exit("[-] Interface is not in monitor mode", 1);
+        }
+
+        // Set a signal handler for CTRL+C event
+        signal(SIGINT, sighandler);
+
+        // If channel is set then dont create the channel hopping thread.
+        std::thread channel_hopper(hopper, iface, sock);
+
+        Packet_Sniffer* sniffer = new Packet_Sniffer();
+        sniffer->config(iface.c_str());
+
+        // Channel join MUST be here. Not sure why.
+        channel_hopper.join();
     }
-
-    signal(SIGINT, sighandler);
-
-    // If channel is set then dont create the channel hopping thread.
-    std::thread channel_hopper(hopper, iface, sock);
-
-    Packet_Sniffer* sniffer = new Packet_Sniffer();
-    sniffer->config("wlan1mon");
-
-    // Channel join MUST be here. Not sure why.
-    channel_hopper.join();
 
     return 0;
 }
