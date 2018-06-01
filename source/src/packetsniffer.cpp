@@ -27,6 +27,7 @@
 *
 */
 
+#include <unistd.h>
 #include <iostream>
 
 #include "../headers/packetsniffer.h"
@@ -48,18 +49,19 @@ Packet_Sniffer::Packet_Sniffer(const char* ifname) {
 
     Sniffer sniffer(ifname, config);
     sniffer.sniff_loop(make_sniffer_handler(this, &Packet_Sniffer::callback));
+    std::cout << "Final: " << count << std::endl;
 }
 
 Packet_Sniffer::Packet_Sniffer(const char* filename, const bool filereader) {
     FileSniffer fsniffer_(filename);
     fsniffer_.sniff_loop(make_sniffer_handler(this, &Packet_Sniffer::callback));
+    std::cout << "Final: " << count << std::endl;
 }
 
-Packet_Sniffer::~Packet_Sniffer() {
-    std::cout << "Class destroyed." << std::endl;
-}
+Packet_Sniffer::~Packet_Sniffer() {}
 
 bool Packet_Sniffer::callback(PDU& pdu) {
+    // Remove counter after resolve missing packet issue
     ++count;
 
     const Dot11& dot11_header = pdu.rfind_pdu<Dot11>();
@@ -79,6 +81,7 @@ bool Packet_Sniffer::callback(PDU& pdu) {
             std::cout << "BAD PACKET" << std::endl;
             break;
     }
+    std::cout << count << std::endl;
     return true;
 }
 

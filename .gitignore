@@ -37,3 +37,6 @@ build/test
 notes.txt
 *.dat
 *.pcap
+
+# Dependencies
+libtins/

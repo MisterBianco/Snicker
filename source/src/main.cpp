@@ -67,49 +67,59 @@ void usage() {
  *  @argv - an array of sys args
  */
 int main(const int argc, const char* argv[]) {
-    if (__uid()) __exit("[-] User not root", 1);
 
-    if (argc < 2) __exit("[-] Usage: ./run [interface]", 1);
+    /*
+        Only open and initialize the socket if a wireless interface is passed.
 
-    // Persistent socket.
-    int sock = -1;
+     */
+
+    if (argc < 2) {
+        usage();
+        __exit("[-] Usage: ./run [interface]", 1);
+    }
 
     // Function Variables
     std::string iface;
-    std::string freq  = "2";
+    std::string freq;
     std::string chan;
     std::string trgt;
 
     std::string filename;
 
-    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-        __exit("[-] Can't open Socket", 1);
-    }
-
     // Sys arg parsing
     for (int i = 0; i < argc; i++) {
+
         if (strcmp(argv[i], "-i") == 0) {
-            iface = argv[i+1];
+            iface = argv[i + 1];
             i++;
         } else if (strcmp(argv[i], "-f") == 0) {
-            freq = argv[i+1];
+            freq = argv[ i+1 ];
             i++;
         } else if (strcmp(argv[i], "-c") == 0) {
-            chan = argv[i+1];
+            chan = argv[ i+1 ];
             i++;
         } else if (strcmp(argv[i], "-o") == 0) {
-            filename = argv[i+1];
+            filename = argv[ i+1 ];
             i++;
         }
     }
 
     // If filename then we are reading from a file
     if (!filename.empty()) {
+
         Packet_Sniffer* sniffer = new Packet_Sniffer(filename.c_str(), true);
-    }
-    else {
-        // Check if interface found else exit to avoid seg fault
-        if (iface.empty()) usage();
+
+    // Else check for an interface
+    } else if (!iface.empty()) {
+
+        if (__uid()) __exit("[-] User not root", 1);
+
+        // Persistent socket.
+        int sock = -1;
+
+        if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+            __exit("[-] Can't open Socket", 1);
+        }
 
         if (!is_wface(iface, sock)) {
             __exit("[-] Please select a wireless interface", 1);
@@ -129,7 +139,8 @@ int main(const int argc, const char* argv[]) {
 
         // Channel join MUST be here. Not sure why.
         channel_hopper.join();
-    }
+
+    } else { usage(); }
 
     return 0;
 }

@@ -37,6 +37,13 @@
 #include <sys/socket.h>
 #include <linux/wireless.h>
 
+const uint8_t two_hertz[11] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+const uint8_t five_hertz[21] = {
+    36, 40, 44, 48, 52, 56,
+    60, 64, 100, 104, 108,
+    112, 116, 132, 136, 140,
+    149, 153, 157, 161, 165};
+
 /*
  *  is_wface
  *          Function to test if supplied name is a wireless card name
@@ -104,17 +111,15 @@ int set_channel(const std::string& ifname, const int& sock, const int8_t& channe
  * @sock   - the persistent socket that ioctl will use
  */
 void hopper(const std::string& ifname, const int& sock) {
-    unsigned int seed = time(NULL);
-    double sleep_timer = 1;
-    uint8_t tg_channels[11] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}; // Make this global
+    uint8_t sleep_timer = 1;
 
     while (true) {
-        uint8_t ch = rand_r(&seed) % 11 + 1;
-        set_channel(ifname, sock, tg_channels[ch]);
+        for (int i = 0; i < sizeof(two_hertz); i++) {
+            set_channel(ifname, sock, two_hertz[i]);
 
-        if (sleep_timer < 2) sleep_timer += .05;
-
-        sleep(sleep_timer);
+            sleep(sleep_timer);
+        }
+        if (sleep_timer < 2) sleep_timer += 1;
     }
     return;
 }
