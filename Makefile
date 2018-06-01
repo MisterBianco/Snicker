@@ -6,8 +6,7 @@ OBJECTS  := $(BPATH)/main.o \
 						$(BPATH)/packetsniffer.o \
 						$(BPATH)/resources.o \
 						$(BPATH)/clients.o \
-						$(BPATH)/hotspots.o \
-						$(BPATH)/filesniffer.o \
+						$(BPATH)/hotspots.o 
 
 CXXFLAGS := -g -std=c++11 -Wall -Wextra
 LDFLAGS  := -ltins -lpthread -lgcov

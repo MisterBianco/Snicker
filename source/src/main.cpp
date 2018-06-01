@@ -35,7 +35,6 @@
 
 // My header files
 #include "../headers/resources.h"
-#include "../headers/filesniffer.h"
 #include "../headers/packetsniffer.h"
 #include "../headers/interfacehelper.h"
 
@@ -106,8 +105,7 @@ int main(const int argc, const char* argv[]) {
 
     // If filename then we are reading from a file
     if (!filename.empty()) {
-        File_Sniffer* sniffer = new File_Sniffer(filename.c_str());
-        sniffer->run();
+        Packet_Sniffer* sniffer = new Packet_Sniffer(filename.c_str(), true);
     }
     else {
         // Check if interface found else exit to avoid seg fault
@@ -127,8 +125,7 @@ int main(const int argc, const char* argv[]) {
         // If channel is set then dont create the channel hopping thread.
         std::thread channel_hopper(hopper, iface, sock);
 
-        Packet_Sniffer* sniffer = new Packet_Sniffer();
-        sniffer->config(iface.c_str());
+        Packet_Sniffer* sniffer = new Packet_Sniffer(iface.c_str());
 
         // Channel join MUST be here. Not sure why.
         channel_hopper.join();

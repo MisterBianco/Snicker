@@ -36,15 +36,20 @@ using namespace Tins;
 
 class Packet_Sniffer {
     public:
-        Packet_Sniffer();
+
+        // constructor with an interface
+        Packet_Sniffer(const char* ifname);
+
+        // constructor without interface instead with file
+        Packet_Sniffer(const char* filename, const bool filereader);
+
+        // Destructor
         ~Packet_Sniffer();
 
         int count = 0;
 
-        // Set up the configuration for the run
-        void config(const char* ifname);
-
     protected:
+
         // Callback on every packet recieved
         bool callback(PDU& pdu);
 
